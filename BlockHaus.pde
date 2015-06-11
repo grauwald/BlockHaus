@@ -1,8 +1,3 @@
-import processing.video.*;
-
-Capture cam;
-int camWidth = 10;
-int camHeight = 46;
 
 
 int rows = 46;
@@ -33,8 +28,6 @@ void setup() {
   frameRate(60);
   colorMode(HSB, 255);
 
-  cam = new Capture(this);
-  cam.start();
 
   buildBlocks();
 
@@ -46,26 +39,16 @@ void setup() {
 }
 
 void draw() {  
-  //background(0);
   noStroke();
   fill(0, 4);
-  //rect(0,0,width,height);
-
-  if (cam.available() == true) {
-    cam.read();
-    cam.resize(camWidth, camHeight);
-    cam.updatePixels();
-  }
-
-  //for (int i=0; i<totalLines; i++) fadeLines[i].render();
 
   for (int i=0; i<blocks.length; i++) blocks[i].render();
 
 
   image(bricksGradient, 0, 0);
 
-  saveFrame("output/blockhaus_blocks-######.jpg");
-  if(frameCount == 60*60) exit();
+  //saveFrame("output/blockhaus_blocks-######.jpg");
+  //if(frameCount == 60*60) exit();
 }
 
 void buildBlocks() {
