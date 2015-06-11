@@ -7,35 +7,33 @@ class Block {
   Block(float _x, float _y) {
     x = _x;
     y = _y;
-    
+
     angleOffset =  random(x + y); //x + y;
     angleSpeed = random(.0001, .001);
-
-
   }
 
   void render() {
-    pushMatrix();
-    translate(x, y);
+
+    gfx.pushMatrix();
+    gfx.translate(x, y);
     drawRect();
+
+    // tint(255, 64);
+    gfx.image(brick, 0, 0);
+    gfx.popMatrix();
     
-   // tint(255, 64);
-    image(brick, 0, 0);
-    popMatrix();
   }
 
   void drawRect() {
+    float angle = (millis()*angleSpeed) + angleOffset;
+    float bright = (sin(angle)+1.0)*.5;
 
-    pushStyle();
-   float angle = (millis()*angleSpeed) + angleOffset;
-   float bright = (sin(angle)+1.0)*.5;
-    
-    noStroke();
-    
-    fill(255.0*bright );
-    rect(0, 0, blockWidth, blockHeight);
-    
-    popStyle();
+    gfx.pushStyle();
+    gfx.noStroke();
+
+    gfx.fill(255.0*bright );
+    gfx.rect(0, 0, blockWidth, blockHeight);
+
+    gfx.popStyle();
   }
-  
 }

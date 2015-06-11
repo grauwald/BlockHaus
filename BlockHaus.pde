@@ -1,3 +1,11 @@
+import deadpixel.keystone.*;
+
+Keystone ks;
+CornerPinSurface surface;
+
+PGraphics gfx;
+
+Boolean calibrating = false;
 
 
 int rows = 46;
@@ -29,23 +37,39 @@ void setup() {
   colorMode(HSB, 255);
 
 
+  ks = new Keystone(this);
+  surface = ks.createCornerPinSurface(width, height, 20);
+  gfx = createGraphics(width, height, P3D);
+
+
   buildBlocks();
 
   bricksGradient = loadImage("bricksGradient.png");
 
   fadeLines = new FadeLine[totalLines];
-
   for (int i=0; i<totalLines; i++) fadeLines[i] = new FadeLine();
 }
 
 void draw() {  
-  noStroke();
-  fill(0, 4);
+  background(0);
+
+  if (calibrating) cursor();
+  else noCursor();
+
+  gfx.beginDraw();
+  gfx.noSmooth();
+
+  gfx.noStroke();
+  gfx.fill(0, 4);
 
   for (int i=0; i<blocks.length; i++) blocks[i].render();
 
+  gfx.image(bricksGradient, 0, 0, width, height);
 
-  image(bricksGradient, 0, 0);
+  gfx.endDraw();
+
+  surface.render(gfx);
+
 
   //saveFrame("output/blockhaus_blocks-######.jpg");
   //if(frameCount == 60*60) exit();
@@ -78,27 +102,24 @@ void buildBlocks() {
 }
 
 
-class FadeLine {
-  
-  float _y;
 
-   FadeLine() {
-     _y = random(height);
-     println("new fadeline! "+_y);
-   }
-   
-   void render(){
-     _y -= random(0.025,0.05);
-     if(_y<=0) _y = height;
-     
-     float c = (1-(_y/height))*255;
-     
-     strokeWeight(blockHeight);
-     stroke(255 , 0, c*.77, c*.15);
-     
-     line(0,_y,width,_y);
-     
+void keyPressed() {
+  switch(key) {
+  case 'c':
+    // enter/leave calibration mode, where surfaces can be warped 
+    // and moved
+    ks.toggleCalibration();
+    calibrating = !calibrating;
+    break;
 
-   }
+  case 'l':
+    // loads the saved layout
+    ks.load();
+    break;
 
+  case 's':
+    // saves the layout
+    ks.save();
+    break;
+  }
 }
