@@ -16,7 +16,7 @@ void initBlocks() {
 
   startX = blockWidth*startXScalar;
   
-  blockHeight = blockWidth*(15.0/114.0); // scaled by original aspect ratio
+  //blockHeight = blockWidth*(15.0/114.0); // scaled by original aspect ratio
   blockOverlap = blockHeight;  
   blockGap = blockWidth-(blockOverlap*2);
 
