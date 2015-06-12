@@ -78,11 +78,11 @@ void draw() {
   gfx.rect(0, 0, width, height);
 
 
-  for (int i=0; i<totalLines; i++) fadeLines[i].render();
+  if (!aligning && !calibrating) for (int i=0; i<totalLines; i++) fadeLines[i].render();
 
   for (int j=0; j<blocks.length; j++) blocks[j].render();
 
-  for (int k=0; k<totalTracers; k++) tracers[k].render();
+  if (!aligning && !calibrating) for (int k=0; k<totalTracers; k++) tracers[k].render();
 
 
   if (!aligning && !calibrating) {
