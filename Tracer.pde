@@ -34,6 +34,8 @@ class Tracer {
 
 
   void setPath() {
+    
+    duration = random(4, 17);
 
     start.x = random(width);
     currentX = start.x;
@@ -41,23 +43,18 @@ class Tracer {
     if(end.x > width) end.x = width;
     if(end.x < 0) end.x  = 0;
 
-    println("start.x: "+start.x);
-    println("end.x: "+end.x);
-
     float y = (round(random(rows)) * blockHeight) + blockHeight*.05;
     
     start.y = y;
     end.y = y;
     currentY = y;
 
-    println("y: "+y);
 
-    duration = random(4, 17);
-
-    active = true;
 
     Ani.to( this, duration, "currentX", end.x, Ani.LINEAR, "onEnd:reverse"); 
     Ani.to(this, duration, "currentY", end.y);
+    
+    active = true;
     
   }
   
