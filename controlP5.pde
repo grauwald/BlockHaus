@@ -14,7 +14,6 @@ void initControlP5() {
   startXScalar = float(data[2]);
   rows = int(data[3]);
 
-  println("rows? "+rows);
 
   cp5 = new ControlP5(this);
 
@@ -22,7 +21,6 @@ void initControlP5() {
   blockWidthCallback = new CallbackListener() {
     public void controlEvent(CallbackEvent theEvent) {
       if (theEvent.getAction()==ControlP5.ACTION_BROADCAST) {
-        println("callback");
         data[0] = str(blockWidth);
         saveStrings("data/alignment.txt", data);
         initBlocks();
@@ -33,7 +31,6 @@ void initControlP5() {
   blockHeightCallback = new CallbackListener() {
     public void controlEvent(CallbackEvent theEvent) {
       if (theEvent.getAction()==ControlP5.ACTION_BROADCAST) {
-        println("callback");
         data[1] = str(blockHeight);
         saveStrings("data/alignment.txt", data);
         initBlocks();
@@ -44,7 +41,6 @@ void initControlP5() {
   startXScalarCallback = new CallbackListener() {
     public void controlEvent(CallbackEvent theEvent) {
       if (theEvent.getAction()==ControlP5.ACTION_BROADCAST) {
-        println("callback");
         data[2] = str(startXScalar);
         saveStrings("data/alignment.txt", data);
         initBlocks();
@@ -57,6 +53,7 @@ void initControlP5() {
   blockHeightSlider = cp5.addSlider("blockHeight").setRange(0, 100).setValue(blockHeight).setPosition(100, 120).setSize(700, 40).addCallback(blockHeightCallback).hide();
   startXScalarSlider = cp5.addSlider("startXScalar").setPosition(100, 170).setValue(startXScalar).setRange(-1.0, 1.0).setSize(700, 40).addCallback(startXScalarCallback).hide();
   rowsSlider = cp5.addSlider("rowsSliderCallback").setPosition(100, 220).setValue(rows*1.0).setRange(1, 50).setSize(700, 40).hide();
+  
 }
 
 void rowsSliderCallback(int value) {

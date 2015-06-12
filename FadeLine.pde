@@ -1,22 +1,25 @@
 class FadeLine {
 
   float _y;
+  float h, s, b, a;
 
   FadeLine() {
     _y = random(height);
-    //println("new fadeline! "+_y);
+    
+    a = random(16);
   }
 
   void render() {
     _y -= random(0.025, 0.05);
     if (_y<=0) _y = height;
 
-    float c = (1-(_y/height))*255;
+     b = (1-(_y/height))*255;
+     a += random(-1.0, 1.0); 
 
     gfx.pushStyle();
 
-    gfx.strokeWeight(blockHeight);
-    gfx.stroke(255, 0, c*.77, c*.15);
+    gfx.strokeWeight(blockHeight*.3333);
+    gfx.stroke(119, 198, b, a);
 
     gfx.line(0, _y, width, _y);
 

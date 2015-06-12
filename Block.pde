@@ -52,6 +52,8 @@ class Block {
   float x, y;
   float angleSpeed = .0001;
   float angleOffset;
+  
+  float bright;
 
   Block(float _x, float _y) {
     x = _x;
@@ -69,21 +71,22 @@ class Block {
     gfx.translate(x, y);
     drawRect();
 
-    // tint(255, 64);
+    gfx.tint(bright*255, bright*255);
     gfx.image(brick, 0, 0, blockWidth, blockHeight);
+    gfx.tint(255, 255);
     gfx.popMatrix();
     
   }
 
   void drawRect() {
     float angle = (millis()*angleSpeed) + angleOffset;
-    float bright = (sin(angle)+1.0)*.5;
+    bright = (sin(angle)+1.0)*.5;
 
     gfx.pushStyle();
     gfx.noStroke();
 
     if(aligning || calibrating) gfx.fill(255.0);
-    else gfx.fill(255.0*bright, 255.0*bright );
+    else gfx.fill(255.0, 255.0*bright );
     
     gfx.rect(0, 0, blockWidth, blockHeight);
 

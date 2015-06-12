@@ -23,7 +23,7 @@ class Tracer {
 
       gfx.noFill();
       gfx.stroke(255, 128);
-      gfx.strokeWeight(blockHeight);
+      gfx.strokeWeight(blockHeight*.1);
 
       gfx.line(start.x, start.y, currentX, currentY);
 
@@ -44,7 +44,7 @@ class Tracer {
     println("start.x: "+start.x);
     println("end.x: "+end.x);
 
-    float y = (round(random(rows)) * blockHeight) + blockHeight*.5;
+    float y = (round(random(rows)) * blockHeight) + blockHeight*.05;
     
     start.y = y;
     end.y = y;
@@ -58,6 +58,7 @@ class Tracer {
 
     Ani.to( this, duration, "currentX", end.x, Ani.LINEAR, "onEnd:reverse"); 
     Ani.to(this, duration, "currentY", end.y);
+    
   }
   
   void reverse() {

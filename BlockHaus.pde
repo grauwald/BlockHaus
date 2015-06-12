@@ -1,10 +1,14 @@
+import tsps.*;
+import oscP5.*;
+import netP5.*;
+
+import deadpixel.keystone.*;
+import controlP5.*;
+
 import de.looksgood.ani.*;
 import de.looksgood.ani.easing.*;
 
-import deadpixel.keystone.*;
-
-import controlP5.*;
-
+PApplet _this;
 
 Keystone ks;
 CornerPinSurface surface;
@@ -22,11 +26,16 @@ int totalLines = 100;
 Tracer tracer;
 
 void setup() {
+  
+  _this = this;
+  
   size(displayWidth, displayHeight, P3D);
   background(0);
   noCursor();
   frameRate(60);
   colorMode(HSB, 255);
+  
+  initKinect();
 
 
   ks = new Keystone(this);
@@ -49,6 +58,8 @@ void setup() {
 }
 
 void draw() {  
+  
+  updateKinect();
 
   if (calibrating || aligning) {
     cursor();
@@ -62,13 +73,20 @@ void draw() {
 
   gfx.noStroke();
   gfx.fill(0, 4);
+  gfx.rect(0,0,width, height);
 
   tracer.render();
+  
+  for (int i=0; i<totalLines; i++) fadeLines[i].render();
 
   for (int i=0; i<blocks.length; i++) blocks[i].render();
 
 
-  if (!aligning && !calibrating) gfx.image(bricksGradient, 0, 0, width, height);
+  if (!aligning && !calibrating){
+   // gfx.tint(255, 128);
+    gfx.image(bricksGradient, 0, 0, width, height);
+    //gfx.tint(255, 255);
+  }
 
 
   gfx.endDraw();
