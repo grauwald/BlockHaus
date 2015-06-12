@@ -40,9 +40,9 @@ void initControlP5() {
   };
 
 
-  blockWidthSlider = cp5.addSlider("blockWidth").setRange(0, 500).setValue(blockWidth).setPosition(100, 50).addCallback(blockWidthCallback).hide();
-  startXScalarSlider = cp5.addSlider("startXScalar").setPosition(100, 80).setValue(startXScalar).setRange(-1.0, 1.0).addCallback(startXScalarCallback).hide();
-  rowsSlider = cp5.addSlider("rowsSliderCallback").setPosition(100, 20).setValue(rows*1.0).setRange(1, 50).hide();
+  blockWidthSlider = cp5.addSlider("blockWidth").setRange(0, 500).setValue(blockWidth).setPosition(100, 120).setSize(700, 40).addCallback(blockWidthCallback).hide();
+  startXScalarSlider = cp5.addSlider("startXScalar").setPosition(100, 170).setValue(startXScalar).setRange(-1.0, 1.0).setSize(700, 40).addCallback(startXScalarCallback).hide();
+  rowsSlider = cp5.addSlider("rowsSliderCallback").setPosition(100, 220).setValue(rows*1.0).setRange(1, 50).setSize(700, 40).hide();
 }
 
 void rowsSliderCallback(int value) {
