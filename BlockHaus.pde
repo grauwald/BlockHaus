@@ -23,20 +23,20 @@ PImage bricksGradient;
 FadeLine[] fadeLines;
 int totalLines = 100;
 
-Tracer tracer;
+Tracer[] tracers;
+int totalTracers = 20;
 
 void setup() {
-  
+
   _this = this;
-  
+
   size(displayWidth, displayHeight, P3D);
   background(0);
   noCursor();
   frameRate(60);
   colorMode(HSB, 255);
-  
-  initKinect();
 
+  initKinect();
 
   ks = new Keystone(this);
   surface = ks.createCornerPinSurface(width, height, 20);
@@ -52,20 +52,22 @@ void setup() {
   fadeLines = new FadeLine[totalLines];
   for (int i=0; i<totalLines; i++) fadeLines[i] = new FadeLine();
 
-
   Ani.init(this);
-  tracer = new Tracer();
+
+
+  tracers = new Tracer[totalTracers];
+  for (int j=0; j<totalTracers; j++) tracers[j] = new Tracer();
 }
 
 void draw() {  
-  
+
   updateKinect();
 
   if (calibrating || aligning) {
     cursor();
     background(0);
   } else noCursor();
- 
+
 
   gfx.beginDraw();
   gfx.noSmooth();
@@ -73,17 +75,18 @@ void draw() {
 
   gfx.noStroke();
   gfx.fill(0, 4);
-  gfx.rect(0,0,width, height);
+  gfx.rect(0, 0, width, height);
 
-  tracer.render();
-  
+
   for (int i=0; i<totalLines; i++) fadeLines[i].render();
 
-  for (int i=0; i<blocks.length; i++) blocks[i].render();
+  for (int j=0; j<blocks.length; j++) blocks[j].render();
+
+  for (int k=0; k<totalTracers; k++) tracers[k].render();
 
 
-  if (!aligning && !calibrating){
-   // gfx.tint(255, 128);
+  if (!aligning && !calibrating) {
+    // gfx.tint(255, 128);
     gfx.image(bricksGradient, 0, 0, width, height);
     //gfx.tint(255, 255);
   }
@@ -91,12 +94,9 @@ void draw() {
 
   gfx.endDraw();
 
-
-
   surface.render(gfx);
 
   renderControlP5();
-
 
   //saveFrame("output/blockhaus_blocks-######.jpg");
   //if(frameCount == 60*60) exit();
@@ -124,7 +124,7 @@ void keyPressed() {
   case 'c':
     ks.toggleCalibration();
     calibrating = !calibrating;
-    if (!calibrating){
+    if (!calibrating) {
       gfx.beginDraw();
       gfx.background(0, 0);
       gfx.endDraw();
