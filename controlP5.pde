@@ -34,7 +34,7 @@ void initControlP5() {
     public void controlEvent(CallbackEvent theEvent) {
       if (theEvent.getAction()==ControlP5.ACTION_BROADCAST) {
         println("callback");
-        data[1] = str(blockWidth);
+        data[1] = str(blockHeight);
         saveStrings("data/alignment.txt", data);
         initBlocks();
       }
