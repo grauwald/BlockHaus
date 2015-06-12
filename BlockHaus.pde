@@ -49,15 +49,16 @@ void setup() {
 }
 
 void draw() {  
-  
-  if (calibrating || aligning) cursor();
-  else noCursor();
-  
-  
+
+  if (calibrating || aligning) {
+    cursor();
+    background(0);
+  } else noCursor();
+ 
 
   gfx.beginDraw();
   gfx.noSmooth();
-  if(aligning) gfx.background(0);
+  if (aligning || calibrating) gfx.background(0);
 
   gfx.noStroke();
   gfx.fill(0, 4);
@@ -67,7 +68,7 @@ void draw() {
   for (int i=0; i<blocks.length; i++) blocks[i].render();
 
 
-  gfx.image(bricksGradient, 0, 0, width, height);
+  if (!aligning && !calibrating) gfx.image(bricksGradient, 0, 0, width, height);
 
 
   gfx.endDraw();
@@ -75,7 +76,7 @@ void draw() {
 
 
   surface.render(gfx);
-  
+
   renderControlP5();
 
 
@@ -93,7 +94,7 @@ void keyPressed() {
     if (!aligning) { 
       hideControls();
       gfx.beginDraw();
-      gfx.background(0,0);
+      gfx.background(0, 0);
       gfx.endDraw();
       background(0);
     } else {
@@ -105,7 +106,12 @@ void keyPressed() {
   case 'c':
     ks.toggleCalibration();
     calibrating = !calibrating;
-    if (!calibrating) background(0);
+    if (!calibrating){
+      gfx.beginDraw();
+      gfx.background(0, 0);
+      gfx.endDraw();
+      background(0);
+    }
 
     break;
 

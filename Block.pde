@@ -82,7 +82,7 @@ class Block {
     gfx.pushStyle();
     gfx.noStroke();
 
-    if(aligning) gfx.fill(255.0);
+    if(aligning || calibrating) gfx.fill(255.0);
     else gfx.fill(255.0*bright, 255.0*bright );
     
     gfx.rect(0, 0, blockWidth, blockHeight);
