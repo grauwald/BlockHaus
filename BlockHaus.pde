@@ -26,6 +26,9 @@ int totalLines = 100;
 Tracer[] tracers;
 int totalTracers = 20;
 
+float horizontal;
+float vertical;
+
 void setup() {
 
   _this = this;
@@ -66,7 +69,8 @@ void draw() {
   if (calibrating || aligning) {
     cursor();
     background(0);
-  } else noCursor();
+  } 
+  else noCursor();
 
 
   gfx.beginDraw();
@@ -81,7 +85,8 @@ void draw() {
 
   if (aligning || calibrating) { 
     int n = 0;
-  } else {
+  } 
+  else {
     for (int i=0; i<totalLines; i++) fadeLines[i].render();
   }
 
@@ -89,7 +94,8 @@ void draw() {
 
   if (aligning || calibrating) { 
     int o = 0;
-  } else { 
+  } 
+  else { 
     for (int k=0; k<totalTracers; k++) tracers[k].render();
   }
 
@@ -102,18 +108,48 @@ void draw() {
 
 
   gfx.endDraw();
-
   surface.render(gfx);
-
   renderControlP5();
-
   //saveFrame("output/blockhaus_blocks-######.jpg");
   //if(frameCount == 60*60) exit();
+  if(aligning) {
+  fill(100);
+  rect(90, 60, 870, 130);
+  }
 }
 
-
-
 void keyPressed() {
+  if (key == CODED) { 
+    // pts
+    if (keyCode == UP) { 
+      vertical-= 0.1;
+      //  put this in another function that sets corner with a button array
+      //       corner = CornerPinSurface.TL;
+      moveCorner();
+
+
+      println("vertical++");
+    } 
+    else if (keyCode == DOWN) { 
+      vertical+= 0.1;
+      moveCorner();
+
+      println("vertical--" + vertical);
+    } 
+    // extrusion length
+    if (keyCode == LEFT) { 
+      horizontal-= 0.1;
+      moveCorner();
+
+      println("horizonal--" + horizontal);
+    } 
+    else if (keyCode == RIGHT) { 
+      horizontal+= 0.1;
+      moveCorner();
+
+      println("horizontal++" + horizontal);
+    }
+  }
   switch(key) {
 
   case 'a':
@@ -124,7 +160,8 @@ void keyPressed() {
       gfx.background(0, 0);
       gfx.endDraw();
       background(0);
-    } else {
+    } 
+    else {
       showControls();
     }
 
@@ -154,6 +191,8 @@ void keyPressed() {
   }
 }
 
+
 boolean sketchFullScreen() {
   return true;
 }
+
