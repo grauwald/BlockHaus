@@ -67,9 +67,9 @@ void initControlP5() {
   rowsSlider = cp5.addSlider("rowsSliderCallback").setPosition(100, 130).setValue(rows*1.0).setRange(1, 50).setSize(700, 10).hide();
   
   topLeftToggle = cp5.addToggle("topLeft").setPosition(100, 150).setSize(20, 20).hide();
-  topRightToggle = cp5.addToggle("topRight").setPosition(130, 150).setSize(20, 20).hide();
-  lowerLeftToggle = cp5.addToggle("lowerLeft").setPosition(160, 150).setSize(20, 20).hide();
-  lowerRightToggle = cp5.addToggle("lowerRight").setPosition(190, 150).setSize(20, 20).hide();
+  topRightToggle = cp5.addToggle("topRight").setPosition(160, 150).setSize(20, 20).hide();
+  lowerLeftToggle = cp5.addToggle("lowerLeft").setPosition(240, 150).setSize(20, 20).hide();
+  lowerRightToggle = cp5.addToggle("lowerRight").setPosition(320, 150).setSize(20, 20).hide();
 }
 
 void rowsSliderCallback(int value) {
