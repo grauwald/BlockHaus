@@ -126,3 +126,7 @@ void keyPressed() {
     break;
   }
 }
+
+boolean sketchFullScreen() {
+  return true;
+}
