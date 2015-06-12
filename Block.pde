@@ -1,11 +1,11 @@
 
-int rows = 29;
-float blockWidth = 104;
+int rows;
+float blockWidth;
 float blockHeight;
 float blockOverlap;
 float blockGap;
 float startX;
-float startXScalar = -0.5;
+float startXScalar;
 PImage brick;
 
 Block[] blocks;
