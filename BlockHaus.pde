@@ -3,6 +3,8 @@ import de.looksgood.ani.easing.*;
 
 import deadpixel.keystone.*;
 
+import controlP5.*;
+
 
 Keystone ks;
 CornerPinSurface surface;
@@ -10,10 +12,7 @@ CornerPinSurface surface;
 PGraphics gfx;
 
 Boolean calibrating = false;
-
-
-
-
+Boolean aligning = false;
 
 PImage bricksGradient;
 
@@ -23,7 +22,7 @@ int totalLines = 100;
 Tracer tracer;
 
 void setup() {
-  size(905, 690, P3D);
+  size(displayWidth, displayHeight, P3D);
   background(0);
   noCursor();
   frameRate(60);
@@ -35,6 +34,7 @@ void setup() {
   gfx = createGraphics(width, height, P3D);
   ks.load();
 
+  initControlP5();
 
   initBlocks();
 
@@ -49,12 +49,15 @@ void setup() {
 }
 
 void draw() {  
-
-  if (calibrating) cursor();
+  
+  if (calibrating || aligning) cursor();
   else noCursor();
+  
+  
 
   gfx.beginDraw();
   gfx.noSmooth();
+  if(aligning) gfx.background(0);
 
   gfx.noStroke();
   gfx.fill(0, 4);
@@ -62,7 +65,6 @@ void draw() {
   tracer.render();
 
   for (int i=0; i<blocks.length; i++) blocks[i].render();
-
 
 
   gfx.image(bricksGradient, 0, 0, width, height);
@@ -73,6 +75,8 @@ void draw() {
 
 
   surface.render(gfx);
+  
+  renderControlP5();
 
 
   //saveFrame("output/blockhaus_blocks-######.jpg");
@@ -83,6 +87,21 @@ void draw() {
 
 void keyPressed() {
   switch(key) {
+
+  case 'a':
+    aligning = !aligning;
+    if (!aligning) { 
+      hideControls();
+      gfx.beginDraw();
+      gfx.background(0,0);
+      gfx.endDraw();
+      background(0);
+    } else {
+      showControls();
+    }
+
+    break;
+
   case 'c':
     ks.toggleCalibration();
     calibrating = !calibrating;

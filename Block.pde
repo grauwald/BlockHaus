@@ -1,10 +1,11 @@
 
-int rows = 46;
+int rows = 29;
 float blockWidth = 104;
-float blockHeight = 15;
-float blockOverlap = 15;
+float blockHeight;
+float blockOverlap;
 float blockGap;
 float startX;
+float startXScalar = -0.5;
 PImage brick;
 
 Block[] blocks;
@@ -13,9 +14,12 @@ Block[] blocks;
 void initBlocks() {
   brick = loadImage("brick.png");
 
+  startX = blockWidth*startXScalar;
+  
+  blockHeight = blockWidth*(15.0/114.0); // scaled by original aspect ratio
+  blockOverlap = blockHeight;  
   blockGap = blockWidth-(blockOverlap*2);
 
-  startX = blockWidth*-0.5;
 
   float _bx = 0;
   float _by = 0;
@@ -66,7 +70,7 @@ class Block {
     drawRect();
 
     // tint(255, 64);
-    gfx.image(brick, 0, 0);
+    gfx.image(brick, 0, 0, blockWidth, blockHeight);
     gfx.popMatrix();
     
   }
@@ -78,7 +82,9 @@ class Block {
     gfx.pushStyle();
     gfx.noStroke();
 
-    gfx.fill(255.0*bright, 255.0*bright );
+    if(aligning) gfx.fill(255.0);
+    else gfx.fill(255.0*bright, 255.0*bright );
+    
     gfx.rect(0, 0, blockWidth, blockHeight);
 
     gfx.popStyle();
