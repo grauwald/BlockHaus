@@ -78,7 +78,7 @@ void draw() {
   gfx.rect(0, 0, width, height);
 
 
-  if (!aligning || !calibrating) { 
+  if (aligning || calibrating) { 
     int n = 0;
   } else {
     for (int i=0; i<totalLines; i++) fadeLines[i].render();
@@ -86,7 +86,7 @@ void draw() {
 
   for (int j=0; j<blocks.length; j++) blocks[j].render();
 
-  if (!aligning || !calibrating) { 
+  if (aligning || calibrating) { 
     int o = 0;
   } else { 
     for (int k=0; k<totalTracers; k++) tracers[k].render();

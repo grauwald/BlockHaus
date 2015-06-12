@@ -19,7 +19,7 @@ class FadeLine {
     gfx.pushStyle();
 
     gfx.strokeWeight(blockHeight*.3333);
-    gfx.stroke(119, 198, b, a);
+    gfx.stroke(143, 198, b, a);
 
     gfx.line(0, _y, width, _y);
 
