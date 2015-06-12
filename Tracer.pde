@@ -43,13 +43,11 @@ class Tracer {
     if(end.x > width) end.x = width;
     if(end.x < 0) end.x  = 0;
 
-    float y = (round(random(rows)) * blockHeight) + blockHeight*.05;
+    float y = (round(random(rows)) * blockHeight) + blockHeight*.1;
     
     start.y = y;
     end.y = y;
     currentY = y;
-
-
 
     Ani.to( this, duration, "currentX", end.x, Ani.LINEAR, "onEnd:reverse"); 
     Ani.to(this, duration, "currentY", end.y);
