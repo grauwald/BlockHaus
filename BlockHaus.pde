@@ -70,6 +70,7 @@ void draw() {
 
 
   gfx.beginDraw();
+  gfx.colorMode(HSB, 255);
   gfx.noSmooth();
   if (aligning || calibrating) gfx.background(0);
 
@@ -94,7 +95,7 @@ void draw() {
 
 
   if (!aligning && !calibrating) {
-    // gfx.tint(255, 128);
+    gfx.tint(255, 255);
     gfx.image(bricksGradient, 0, 0, width, height);
     //gfx.tint(255, 255);
   }

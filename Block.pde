@@ -60,7 +60,7 @@ class Block {
     y = _y;
 
     angleOffset =  random(x + y); //x + y;
-    angleSpeed = random(.00001, .001);
+    angleSpeed = random(.00001, .0001);
   }
 
   void render() {
@@ -86,7 +86,7 @@ class Block {
     gfx.noStroke();
 
     if(aligning || calibrating) gfx.fill(255.0);
-    else gfx.fill(255.0, 255.0*bright );
+    else gfx.fill(255.0*bright, 255.0*bright );
     
     gfx.rect(0, 0, blockWidth, blockHeight);
 
