@@ -50,8 +50,12 @@ void initBlocks() {
 class Block {
 
   float x, y;
-  float angleSpeed = .0001;
+  float angleSpeed, angleSpeedOriginal;
+  float angleSpeedTarget;
+  float angleSpeedEasing = .004;
   float angleOffset;
+
+  float diagonal;
 
   float bright;
 
@@ -60,7 +64,10 @@ class Block {
     y = _y;
 
     angleOffset = x + y; //  random(x + y); //x + y;
-    angleSpeed = angleOffset*.000000001; //random(.00001, .0001);
+    angleSpeed = angleOffset*.000000001; //random(.00001, .0001);\
+    angleSpeedOriginal = angleSpeed;
+
+    diagonal = dist(0, 0, width, height);
   }
 
   void render() {
@@ -78,12 +85,31 @@ class Block {
   }
 
   void drawRect() {
-    
-    
-    
-    
-    
+
+    if (kinect.people.length == 0) { 
+      angleSpeedTarget = angleSpeedOriginal;
+    } else {
+      
+     // println("kinect.crowdCentroid: "+kinect.crowdCentroid);
+
+      PVector centroid = kinect.crowdCentroid;
+      float distance = dist(x, y, centroid.x*width, centroid.y*height);
+      angleSpeedTarget = (diagonal-distance)*.00057;
+
+      /*
+      for (int i=0; i<kinect.people.length; i++) {
+       PVector centroid = kinect.people[i].centroid;
+       float distance = dist(x, y, centroid.x*width, centroid.y*height);
+       angleSpeedTarget = (diagonal-distance)*.0001;
+       }
+       */
+    }
+
+    float ds = angleSpeedTarget-angleSpeed;
+    if (abs(ds)>1)  angleSpeed += ds*angleSpeedEasing;
+
     float angle = (millis()*angleSpeed) + angleOffset;
+    
     bright = (sin(angle)+1.0)*.5;
 
     gfx.pushStyle();

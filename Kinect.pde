@@ -9,6 +9,8 @@ void initKinect() {
 void updateKinect() {
 
   kinect.update();
+
+  println("total people: "+kinect.people.length);
 }
 
 
@@ -21,7 +23,6 @@ class Kinect {
   float kinectLeft, kinectRight;
   float screenLeft, screenRight;
 
-  XML kinectXML;
 
   PVector crowdCentroid, crowdVelocity;
 
@@ -30,40 +31,45 @@ class Kinect {
 
     tsps = new TSPS(_this, 12000);
 
-
+    crowdCentroid = new PVector(.5, .5);
+    crowdVelocity = new PVector(0, 0);
   }
 
   void update() {
-    people = tsps.getPeopleArray();
+    TSPSPerson[] _people = tsps.getPeopleArray();
+    people = _people;
 
-    for (int i=0; i<people.length; i++) {
-      float _x = people[i].centroid.x;
-      people[i].centroid.x = map(_x, kinectLeft, kinectRight, screenLeft, screenRight);
-    }
-    
-   // findCrowdAttributes();
+    findCrowdAttributes();
   }
 
   void findCrowdAttributes() {
-    crowdCentroid.x = 0;
-    crowdCentroid.y = 0;
+    crowdCentroid.x = .5;
+    crowdCentroid.y = .5;
 
     crowdVelocity.x = 0;
     crowdVelocity.y = 0;  
 
-    for (int i=0; i<people.length; i++) {
-      crowdCentroid.x += people[i].centroid.x;
-      crowdCentroid.y += people[i].centroid.y;
+    if (people.length > 0) {
 
-      crowdVelocity.x += people[i].velocity.x;
-      crowdVelocity.y += people[i].velocity.y;
+      crowdCentroid.x = 0;
+      crowdCentroid.y = 0;
+
+
+      for (int i=0; i<people.length; i++) {
+        crowdCentroid.x += people[i].centroid.x;
+        crowdCentroid.y += people[i].centroid.y;
+
+        crowdVelocity.x += people[i].velocity.x;
+        crowdVelocity.y += people[i].velocity.y;
+      }
+
+      crowdCentroid.x /= people.length;
+      crowdCentroid.y /= people.length;
+
+      crowdVelocity.x /= people.length;
+      crowdVelocity.y /= people.length;
     }
-
-    crowdCentroid.x /= people.length;
-    crowdCentroid.y /= people.length;
-
-    crowdVelocity.x /= people.length;
-    crowdVelocity.y /= people.length;
   }
+  
   
 }
