@@ -10,23 +10,23 @@ class FadeLine {
     
     a = random(16);
     
-    hMax = random(143, 255);
+    hMax = random(177, 255);
     hMin = random(117, 143); 
   }
 
   void render() {
-    _y -= random(-0.25, 0.5);
+    _y -= random(0.25, 0.5);
     if (_y<=0) _y = height;
     
      h = (1-(_y/height));
      h = map(h, 0,1, hMax, hMin);
 
-     b = (1-(_y/height))*128+128;
+     b = (1-(_y/height))*196+64;
      a += random(-1.0, 1.0); 
 
     gfx.pushStyle();
 
-    gfx.strokeWeight(blockHeight*.3333);
+    gfx.strokeWeight(blockHeight);
     gfx.stroke(h, 255, b, a);
 
     gfx.line(0, _y, width, _y);

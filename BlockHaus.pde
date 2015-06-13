@@ -123,10 +123,7 @@ void keyPressed() {
     // pts
     if (keyCode == UP) { 
       vertical-= 0.1;
-      //  put this in another function that sets corner with a button array
-      //       corner = CornerPinSurface.TL;
       moveCorner();
-
 
       println("vertical++");
     } 
@@ -195,4 +192,3 @@ void keyPressed() {
 boolean sketchFullScreen() {
   return true;
 }
-

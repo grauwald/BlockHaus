@@ -15,7 +15,7 @@ void initBlocks() {
   brick = loadImage("brick.png");
 
   startX = blockWidth*startXScalar;
-  
+
   //blockHeight = blockWidth*(15.0/114.0); // scaled by original aspect ratio
   blockOverlap = blockHeight;  
   blockGap = blockWidth-(blockOverlap*2);
@@ -52,19 +52,19 @@ class Block {
   float x, y;
   float angleSpeed = .0001;
   float angleOffset;
-  
+
   float bright;
 
   Block(float _x, float _y) {
     x = _x;
     y = _y;
 
-    angleOffset =  random(x + y); //x + y;
-    angleSpeed = random(.00001, .0001);
+    angleOffset = x + y; //  random(x + y); //x + y;
+    angleSpeed = angleOffset*.000000001; //random(.00001, .0001);
   }
 
   void render() {
-    
+
     //if(random(1000)>999 ) angleSpeed += random(-.00001, .00001);
 
     gfx.pushMatrix();
@@ -75,19 +75,23 @@ class Block {
     gfx.image(brick, 0, 0, blockWidth, blockHeight);
     gfx.tint(255, 255);
     gfx.popMatrix();
-    
   }
 
   void drawRect() {
+    
+    
+    
+    
+    
     float angle = (millis()*angleSpeed) + angleOffset;
     bright = (sin(angle)+1.0)*.5;
 
     gfx.pushStyle();
     gfx.noStroke();
 
-    if(aligning || calibrating) gfx.fill(255.0);
+    if (aligning || calibrating) gfx.fill(255.0);
     else gfx.fill(255.0*bright); //, 255.0*bright );
-    
+
     gfx.rect(0, 0, blockWidth, blockHeight);
 
     gfx.popStyle();
