@@ -50,9 +50,12 @@ void initBlocks() {
 class Block {
 
   float x, y;
+  float xOriginal, yOriginal;
+  float xTarget, yTarget;
+  
   float angleSpeed, angleSpeedOriginal;
   float angleSpeedTarget;
-  float angleSpeedEasing = .004;
+  float easing = .004;
   float angleOffset;
 
   float diagonal;
@@ -62,9 +65,12 @@ class Block {
   Block(float _x, float _y) {
     x = _x;
     y = _y;
+    
+    xOriginal = x;
+    yOriginal = y;
 
     angleOffset = x + y; //  random(x + y); //x + y;
-    angleSpeed = angleOffset*.000000001; //random(.00001, .0001);\
+    angleSpeed = angleOffset*.00000001; //random(.00001, .0001);\
     angleSpeedOriginal = angleSpeed;
 
     diagonal = dist(0, 0, width, height);
@@ -72,13 +78,12 @@ class Block {
 
   void render() {
 
-    //if(random(1000)>999 ) angleSpeed += random(-.00001, .00001);
 
     gfx.pushMatrix();
     gfx.translate(x, y);
     drawRect();
 
-    gfx.tint(bright*255, bright*255);
+    gfx.tint(bright*255, bright*128);
     gfx.image(brick, 0, 0, blockWidth, blockHeight);
     gfx.tint(255, 255);
     gfx.popMatrix();
@@ -87,14 +92,20 @@ class Block {
   void drawRect() {
 
     if (kinect.people.length == 0) { 
-      angleSpeedTarget = angleSpeedOriginal;
+      //angleSpeedTarget = angleSpeedOriginal;
+      xTarget = xOriginal;
+      yTarget = yOriginal;
     } else {
       
      // println("kinect.crowdCentroid: "+kinect.crowdCentroid);
 
       PVector centroid = kinect.crowdCentroid;
-      float distance = dist(x, y, centroid.x*width, centroid.y*height);
-      angleSpeedTarget = (diagonal-distance)*.00057;
+      PVector velocity = kinect.crowdVelocity;
+      //float distance = dist(x, y, centroid.x*width, centroid.y*height);
+      //angleSpeedTarget = ((diagonal-distance)/diagonal)*.1;
+      
+      xTarget = lerp(xOriginal, centroid.x, velocity.x*.01);
+      yTarget = lerp(yOriginal, centroid.y, velocity.y*.01);
 
       /*
       for (int i=0; i<kinect.people.length; i++) {
@@ -105,8 +116,11 @@ class Block {
        */
     }
 
-    float ds = angleSpeedTarget-angleSpeed;
-    if (abs(ds)>1)  angleSpeed += ds*angleSpeedEasing;
+    float dx = xTarget-x;
+    if (abs(dx)>1)  x += dx*easing;
+    
+    float dy = yTarget-y;
+    if (abs(dy)>1)  y += dy*easing;
 
     float angle = (millis()*angleSpeed) + angleOffset;
     
@@ -116,7 +130,7 @@ class Block {
     gfx.noStroke();
 
     if (aligning || calibrating) gfx.fill(255.0);
-    else gfx.fill(255.0*bright); //, 255.0*bright );
+    else gfx.fill(255.0*bright, 128.0*bright );
 
     gfx.rect(0, 0, blockWidth, blockHeight);
 
