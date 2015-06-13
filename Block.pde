@@ -78,7 +78,6 @@ class Block {
 
   void render() {
 
-
     gfx.pushMatrix();
     gfx.translate(x, y);
     drawRect();
@@ -97,23 +96,12 @@ class Block {
       yTarget = yOriginal;
     } else {
       
-     // println("kinect.crowdCentroid: "+kinect.crowdCentroid);
-
       PVector centroid = kinect.crowdCentroid;
       PVector velocity = kinect.crowdVelocity;
-      //float distance = dist(x, y, centroid.x*width, centroid.y*height);
-      //angleSpeedTarget = ((diagonal-distance)/diagonal)*.1;
       
       xTarget = lerp(xOriginal, centroid.x, velocity.x*.01);
       yTarget = lerp(yOriginal, centroid.y, velocity.y*.01);
 
-      /*
-      for (int i=0; i<kinect.people.length; i++) {
-       PVector centroid = kinect.people[i].centroid;
-       float distance = dist(x, y, centroid.x*width, centroid.y*height);
-       angleSpeedTarget = (diagonal-distance)*.0001;
-       }
-       */
     }
 
     float dx = xTarget-x;
@@ -121,8 +109,10 @@ class Block {
     
     float dy = yTarget-y;
     if (abs(dy)>1)  y += dy*easing;
+    
+    float speedMod = (kinect.crowdVelocity.x + kinect.crowdVelocity.x)*.01 ;
 
-    float angle = (millis()*angleSpeed) + angleOffset;
+    float angle = (millis()*angleSpeed+speedMod) + angleOffset;
     
     bright = (sin(angle)+1.0)*.5;
 

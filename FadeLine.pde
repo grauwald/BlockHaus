@@ -10,8 +10,8 @@ class FadeLine {
     
     a = random(16);
     
-    hMax = random(177, 255);
-    hMin = random(117, 143); 
+    hMax = random(222, 255);
+    hMin = random(127, 143); 
   }
 
   void render() {

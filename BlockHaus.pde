@@ -57,7 +57,6 @@ void setup() {
 
   Ani.init(this);
 
-
   tracers = new Tracer[totalTracers];
   for (int j=0; j<totalTracers; j++) tracers[j] = new Tracer();
 }
@@ -83,12 +82,7 @@ void draw() {
   gfx.rect(0, 0, width, height);
 
 
-  if (aligning || calibrating) { 
-    int n = 0;
-  } 
-  else {
-    for (int i=0; i<totalLines; i++) fadeLines[i].render();
-  }
+
 
   for (int j=0; j<blocks.length; j++) blocks[j].render();
 
@@ -104,6 +98,13 @@ void draw() {
     gfx.tint(255, 255);
     gfx.image(bricksGradient, 0, 0, width, height);
     //gfx.tint(255, 255);
+  }
+  
+  if (aligning || calibrating) { 
+    int n = 0;
+  } 
+  else {
+    for (int i=0; i<totalLines; i++) fadeLines[i].render();
   }
 
 
