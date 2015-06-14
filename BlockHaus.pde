@@ -3,6 +3,8 @@ import oscP5.*;
 import netP5.*;
 import geomerative.*;
 import processing.opengl.*;
+import processing.video.*;
+
 
 import deadpixel.keystone.*;
 import controlP5.*;
@@ -51,6 +53,8 @@ void setup() {
   initControlP5();
 
   initBlocks();
+  
+  
 
   bricksGradient = loadImage("bricksGradient.png");
 
@@ -61,6 +65,8 @@ void setup() {
 
   tracers = new Tracer[totalTracers];
   for (int j=0; j<totalTracers; j++) tracers[j] = new Tracer();
+  
+  initWriteOns();
 }
 
 void draw() {  
@@ -75,6 +81,7 @@ void draw() {
 
 
   gfx.beginDraw();
+  
   gfx.colorMode(HSB, 255);
   gfx.noSmooth();
   if (aligning || calibrating) gfx.background(0);
@@ -108,17 +115,19 @@ void draw() {
   }
 
 
-
+  renderWriteOns();
 
   gfx.endDraw();
   surface.render(gfx);
   renderControlP5();
-  //saveFrame("output/blockhaus_blocks-######.jpg");
-  //if(frameCount == 60*60) exit();
+
   if (aligning) {
     fill(100);
     rect(90, 60, 870, 130);
   }
+  
+  //saveFrame("output/blockhaus_blocks-######.jpg");
+  //if(frameCount == 60*60) exit();
 }
 
 void keyPressed() {
