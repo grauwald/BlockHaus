@@ -1,5 +1,6 @@
 
 int rows;
+int columns = 0;
 float blockWidth;
 float blockHeight;
 float blockOverlap;
@@ -19,6 +20,12 @@ void initBlocks() {
   //blockHeight = blockWidth*(15.0/114.0); // scaled by original aspect ratio
   blockOverlap = blockHeight;  
   blockGap = blockWidth-(blockOverlap*2);
+  
+  float totalWidth = width + abs(startX);
+  println("totalWidth: "+totalWidth);
+  columns = round(totalWidth/blockWidth)+1;
+  println("columns: "+columns);
+  
 
 
   float _bx = 0;
@@ -37,7 +44,7 @@ void initBlocks() {
       blocks = (Block[]) append(blocks, _block);
       _bx += (blockWidth+blockGap);
     }
-
+    
     _by += blockHeight;
   }
 }

@@ -10,7 +10,7 @@ void updateKinect() {
 
   kinect.update();
 
-  println("total people: "+kinect.people.length);
+  //println("total people: "+kinect.people.length);
 }
 
 
