@@ -93,7 +93,7 @@ class Block {
     gfx.translate(x, y);
     drawRect();
 
-    gfx.tint(bright*255, bright*128);
+    gfx.tint(bright*255, bright*255);
     gfx.image(brick, 0, 0, blockWidth, blockHeight);
     gfx.tint(255, 255);
     gfx.popMatrix();
@@ -111,7 +111,7 @@ class Block {
       PVector velocity = kinect.crowdVelocity;
 
       xTarget = lerp(xOriginal, centroid.x, velocity.x*.01);
-      yTarget = lerp(yOriginal, centroid.y, velocity.y*.01);
+      yTarget = lerp(yOriginal, centroid.y, velocity.y*.1);
     }
 
     float dx = xTarget-x;
@@ -130,7 +130,7 @@ class Block {
     gfx.noStroke();
 
     if (aligning || calibrating) gfx.fill(255.0);
-    else gfx.fill(255.0*bright, 128.0*bright );
+    else gfx.fill(255.0*bright, 255.0*bright );
 
     gfx.rect(0, 0, blockWidth, blockHeight);
 

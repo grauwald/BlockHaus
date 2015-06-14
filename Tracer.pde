@@ -17,7 +17,7 @@ class Tracer {
   }
 
   void render() {
-    if (random(250)>249 && !active) setPath();
+    if (random(1000)>999 && !active) setPath();
 
     if (active) {
       gfx.pushStyle();
@@ -35,7 +35,6 @@ class Tracer {
 
   void setPath() {
 
-    duration = random(4, 17);
 
     if (random(1)>0.5) { // horizontal
       vertical = false;
@@ -45,6 +44,8 @@ class Tracer {
       end.x = start.x*random(-width*.5, width*.5);
       if (end.x > width) end.x = width;
       if (end.x < 0) end.x  = 0;
+      
+      duration = abs(start.x-end.x)*random(.01, .1);// random(4, 17);
 
       float y = (round(random(rows)) * blockHeight) + increment*.4;
 
@@ -60,6 +61,8 @@ class Tracer {
       if (end.y > height) end.y = height;
       if (end.y < 0) end.y  = 0;
 
+      
+      duration = abs(start.y-end.y)*random(.01, .1);// random(4, 17);
 
 
       float x = (round(random(increments)) * increment) + startX + (increment*.5);
