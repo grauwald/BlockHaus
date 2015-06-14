@@ -68,8 +68,7 @@ void draw() {
   if (calibrating || aligning) {
     cursor();
     background(0);
-  } 
-  else noCursor();
+  } else noCursor();
 
 
   gfx.beginDraw();
@@ -84,8 +83,7 @@ void draw() {
 
   if (aligning || calibrating) { 
     int n = 0;
-  } 
-  else {
+  } else {
     for (int i=0; i<totalLines; i++) fadeLines[i].render();
   }
 
@@ -93,8 +91,7 @@ void draw() {
 
   if (aligning || calibrating) { 
     int o = 0;
-  } 
-  else { 
+  } else { 
     for (int k=0; k<totalTracers; k++) tracers[k].render();
   }
 
@@ -104,7 +101,7 @@ void draw() {
     gfx.image(bricksGradient, 0, 0, width, height);
     //gfx.tint(255, 255);
   }
-  
+
 
 
 
@@ -113,9 +110,9 @@ void draw() {
   renderControlP5();
   //saveFrame("output/blockhaus_blocks-######.jpg");
   //if(frameCount == 60*60) exit();
-  if(aligning) {
-  fill(100);
-  rect(90, 60, 870, 130);
+  if (aligning) {
+    fill(100);
+    rect(90, 60, 870, 130);
   }
 }
 
@@ -127,8 +124,7 @@ void keyPressed() {
       moveCorner();
 
       println("vertical++");
-    } 
-    else if (keyCode == DOWN) { 
+    } else if (keyCode == DOWN) { 
       vertical+= 0.1;
       moveCorner();
 
@@ -140,8 +136,7 @@ void keyPressed() {
       moveCorner();
 
       println("horizonal--" + horizontal);
-    } 
-    else if (keyCode == RIGHT) { 
+    } else if (keyCode == RIGHT) { 
       horizontal+= 0.1;
       moveCorner();
 
@@ -158,8 +153,7 @@ void keyPressed() {
       gfx.background(0, 0);
       gfx.endDraw();
       background(0);
-    } 
-    else {
+    } else {
       showControls();
     }
 

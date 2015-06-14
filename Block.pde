@@ -9,6 +9,9 @@ float startX;
 float startXScalar;
 PImage brick;
 
+float increment;
+float increments;
+
 Block[] blocks;
 
 
@@ -20,13 +23,14 @@ void initBlocks() {
   //blockHeight = blockWidth*(15.0/114.0); // scaled by original aspect ratio
   blockOverlap = blockHeight;  
   blockGap = blockWidth-(blockOverlap*2);
-  
+
   float totalWidth = width + abs(startX);
   println("totalWidth: "+totalWidth);
   columns = round(totalWidth/blockWidth)+1;
   println("columns: "+columns);
-  
 
+  increment = blockWidth*.051;
+  increments = (width+abs(startX))/increment;
 
   float _bx = 0;
   float _by = 0;
@@ -44,7 +48,7 @@ void initBlocks() {
       blocks = (Block[]) append(blocks, _block);
       _bx += (blockWidth+blockGap);
     }
-    
+
     _by += blockHeight;
   }
 }
@@ -59,7 +63,7 @@ class Block {
   float x, y;
   float xOriginal, yOriginal;
   float xTarget, yTarget;
-  
+
   float angleSpeed, angleSpeedOriginal;
   float angleSpeedTarget;
   float easing = .004;
@@ -72,7 +76,7 @@ class Block {
   Block(float _x, float _y) {
     x = _x;
     y = _y;
-    
+
     xOriginal = x;
     yOriginal = y;
 
@@ -102,25 +106,24 @@ class Block {
       xTarget = xOriginal;
       yTarget = yOriginal;
     } else {
-      
+
       PVector centroid = kinect.crowdCentroid;
       PVector velocity = kinect.crowdVelocity;
-      
+
       xTarget = lerp(xOriginal, centroid.x, velocity.x*.01);
       yTarget = lerp(yOriginal, centroid.y, velocity.y*.01);
-
     }
 
     float dx = xTarget-x;
     if (abs(dx)>1)  x += dx*easing;
-    
+
     float dy = yTarget-y;
     if (abs(dy)>1)  y += dy*easing;
-    
+
     float speedMod = (kinect.crowdVelocity.x + kinect.crowdVelocity.x)*.01 ;
 
     float angle = (millis()*angleSpeed+speedMod) + angleOffset;
-    
+
     bright = (sin(angle)+1.0)*.5;
 
     gfx.pushStyle();

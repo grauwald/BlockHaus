@@ -7,11 +7,11 @@ class Tracer {
   Boolean vertical = false;
   Boolean active = false;
 
+
+
   Tracer() {
     start = new PVector(0, 0);
     end = new PVector(0, 0);
-
-
 
     setPath();
   }
@@ -24,7 +24,7 @@ class Tracer {
 
       gfx.noFill();
       gfx.stroke(255, 128);
-      gfx.strokeWeight(blockHeight*.1);
+      gfx.strokeWeight(increment*.5);
 
       gfx.line(start.x, start.y, currentX, currentY);
 
@@ -46,7 +46,7 @@ class Tracer {
       if (end.x > width) end.x = width;
       if (end.x < 0) end.x  = 0;
 
-      float y = (round(random(rows)) * blockHeight) + blockHeight*.1;
+      float y = (round(random(rows)) * blockHeight) + increment*.4;
 
       start.y = y;
       end.y = y;
@@ -60,7 +60,9 @@ class Tracer {
       if (end.y > height) end.y = height;
       if (end.y < 0) end.y  = 0;
 
-      float x = (round(random(columns)) * blockWidth);
+
+
+      float x = (round(random(increments)) * increment) + startX + (increment*.5);
 
       start.x = x;
       end.x = x;
