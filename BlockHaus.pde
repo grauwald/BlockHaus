@@ -1,6 +1,8 @@
 import tsps.*;
 import oscP5.*;
 import netP5.*;
+import geomerative.*;
+import processing.opengl.*;
 
 import deadpixel.keystone.*;
 import controlP5.*;
@@ -38,7 +40,8 @@ void setup() {
   noCursor();
   frameRate(60);
   colorMode(HSB, 255);
-
+ 
+  initSVG();
   initKinect();
 
   ks = new Keystone(this);
@@ -114,6 +117,7 @@ void draw() {
     fill(100);
     rect(90, 60, 870, 130);
   }
+  drawSVG();
 }
 
 void keyPressed() {
