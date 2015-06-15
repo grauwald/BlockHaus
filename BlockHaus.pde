@@ -125,6 +125,7 @@ void draw() {
         gfx.pushMatrix();
         gfx.translate(blocks[k].xOriginal, blocks[k].yOriginal);
         gfx.blendMode(NORMAL);
+        gfx.image(brick, 0, 0, blockWidth, blockHeight);
         gfx.fill(0, 255);
         gfx.rect(blockWidth, 0, blockGap, blockHeight);
         gfx.popMatrix();

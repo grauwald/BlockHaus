@@ -94,7 +94,8 @@ class Block {
     gfx.translate(x, y);
     drawRect();
 
-    gfx.tint(bright*255, bright*255);
+    if(masked) gfx.tint(255, 255);
+    else gfx.tint(bright*255, bright*255);
     gfx.image(brick, 0, 0, blockWidth, blockHeight);
     gfx.tint(255, 255);
     
