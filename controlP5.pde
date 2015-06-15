@@ -17,6 +17,8 @@ Toggle lowerRightToggle;
 
 //boolean()
 
+Boolean masked;
+
 void initControlP5() {
 
   data = loadStrings("alignment.txt");
@@ -25,7 +27,8 @@ void initControlP5() {
   blockHeight = float(data[1]);
   startXScalar = float(data[2]);
   rows = int(data[3]);
-
+  masked = boolean(data[4]);
+  println("masked: "+masked);
 
   cp5 = new ControlP5(this);
 
@@ -104,4 +107,3 @@ void hideControls() {
   lowerLeftToggle.hide();
   lowerRightToggle.hide();
 }
-

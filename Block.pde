@@ -23,6 +23,7 @@ void initBlocks() {
   //blockHeight = blockWidth*(15.0/114.0); // scaled by original aspect ratio
   blockOverlap = blockHeight;  
   blockGap = blockWidth-(blockOverlap*2);
+  println( "blockGap: "+blockGap );
 
   float totalWidth = width + abs(startX);
   println("totalWidth: "+totalWidth);
@@ -96,6 +97,7 @@ class Block {
     gfx.tint(bright*255, bright*255);
     gfx.image(brick, 0, 0, blockWidth, blockHeight);
     gfx.tint(255, 255);
+    
     gfx.popMatrix();
   }
 

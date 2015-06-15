@@ -72,6 +72,18 @@ void draw() {
 
 
   gfx.beginDraw();
+
+  if (masked) {
+    for (int k=0; k<blocks.length; k++) {
+      gfx.pushMatrix();
+      gfx.translate(blocks[k].xOriginal, blocks[k].yOriginal);
+      gfx.fill(0, 255);
+      gfx.rect(blockWidth, 0, blockGap, blockHeight);
+      gfx.popMatrix();
+    }
+  }
+
+
   gfx.colorMode(HSB, 255);
   gfx.noSmooth();
   if (aligning || calibrating) gfx.background(0);
@@ -97,15 +109,31 @@ void draw() {
 
 
   if (!aligning && !calibrating) {
-    gfx.tint(255, 255);
     gfx.image(bricksGradient, 0, 0, width, height);
-    //gfx.tint(255, 255);
   }
 
 
 
 
   gfx.endDraw();
+
+
+  if (masked) {
+    gfx.beginDraw();
+    for (int k=0; k<blocks.length; k++) {
+      if (blocks[k].yOriginal < height*.6) {
+        gfx.pushMatrix();
+        gfx.translate(blocks[k].xOriginal, blocks[k].yOriginal);
+        gfx.blendMode(NORMAL);
+        gfx.fill(0, 255);
+        gfx.rect(blockWidth, 0, blockGap, blockHeight);
+        gfx.popMatrix();
+      }
+    }
+    gfx.endDraw();
+  }
+
+
   surface.render(gfx);
   renderControlP5();
   //saveFrame("output/blockhaus_blocks-######.jpg");
