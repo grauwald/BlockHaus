@@ -15,7 +15,7 @@ class FadeLine {
   }
 
   void render() {
-    _y -= random(0.025, 0.1);
+    _y -= random(0.25, 0.5);
     if (_y<=0) _y = height;
     
      h = (1-(_y/height));

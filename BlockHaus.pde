@@ -1,6 +1,10 @@
 import tsps.*;
 import oscP5.*;
 import netP5.*;
+import geomerative.*;
+import processing.opengl.*;
+import processing.video.*;
+
 
 import deadpixel.keystone.*;
 import controlP5.*;
@@ -49,6 +53,8 @@ void setup() {
   initControlP5();
 
   initBlocks();
+  
+  
 
   bricksGradient = loadImage("bricksGradient.png");
 
@@ -59,6 +65,8 @@ void setup() {
 
   tracers = new Tracer[totalTracers];
   for (int j=0; j<totalTracers; j++) tracers[j] = new Tracer();
+  
+  initWriteOns();
 }
 
 void draw() {  
@@ -68,21 +76,11 @@ void draw() {
   if (calibrating || aligning) {
     cursor();
     background(0);
-  } else noCursor();
+  } 
+  else noCursor();
 
 
   gfx.beginDraw();
-
-  if (masked) {
-    for (int k=0; k<blocks.length; k++) {
-      gfx.pushMatrix();
-      gfx.translate(blocks[k].xOriginal, blocks[k].yOriginal);
-      gfx.fill(0, 255);
-      gfx.rect(blockWidth, 0, blockGap, blockHeight);
-      gfx.popMatrix();
-    }
-  }
-
 
   gfx.colorMode(HSB, 255);
   gfx.noSmooth();
@@ -95,7 +93,8 @@ void draw() {
 
   if (aligning || calibrating) { 
     int n = 0;
-  } else {
+  } 
+  else {
     for (int i=0; i<totalLines; i++) fadeLines[i].render();
   }
 
@@ -103,7 +102,8 @@ void draw() {
 
   if (aligning || calibrating) { 
     int o = 0;
-  } else { 
+  } 
+  else { 
     for (int k=0; k<totalTracers; k++) tracers[k].render();
   }
 
@@ -113,7 +113,7 @@ void draw() {
   }
 
 
-
+  renderWriteOns();
 
   gfx.endDraw();
 
@@ -136,12 +136,14 @@ void draw() {
 
   surface.render(gfx);
   renderControlP5();
-  //saveFrame("output/blockhaus_blocks-######.jpg");
-  //if(frameCount == 60*60) exit();
+
   if (aligning) {
     fill(100);
     rect(90, 60, 870, 130);
   }
+  
+  //saveFrame("output/blockhaus_blocks-######.jpg");
+  //if(frameCount == 60*60) exit();
 }
 
 void keyPressed() {
@@ -152,7 +154,8 @@ void keyPressed() {
       moveCorner();
 
       println("vertical++");
-    } else if (keyCode == DOWN) { 
+    } 
+    else if (keyCode == DOWN) { 
       vertical+= 0.1;
       moveCorner();
 
@@ -164,7 +167,8 @@ void keyPressed() {
       moveCorner();
 
       println("horizonal--" + horizontal);
-    } else if (keyCode == RIGHT) { 
+    } 
+    else if (keyCode == RIGHT) { 
       horizontal+= 0.1;
       moveCorner();
 
@@ -181,7 +185,8 @@ void keyPressed() {
       gfx.background(0, 0);
       gfx.endDraw();
       background(0);
-    } else {
+    } 
+    else {
       showControls();
     }
 
